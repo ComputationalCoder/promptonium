@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from 'https://esm.sh/react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, BarChart, Bar, ResponsiveContainer } from 'https://esm.sh/recharts';
 import { Trophy, Clock, Target, Brain, User, Settings, BookOpen, Play, CheckCircle, AlertCircle, Star, Award, TrendingUp, Users, Zap } from 'https://esm.sh/lucide-react';
+
 // Mock data for demonstration
 const mockUser = {
   username: "demo_user",
@@ -954,3 +955,4 @@ export default function PromptTrainerApp() {
     </AuthProvider>
   );
 }
+export default PromptTrainerApp;
