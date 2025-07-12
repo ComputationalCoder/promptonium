@@ -1,14 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prompt Engineering Trainer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promptonium - Master the Art of AI Prompting</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M12 8v8'%3E%3C/path%3E%3Cpath d='M8 12h8'%3E%3C/path%3E%3C/svg%3E">
+    
+    <!-- Meta tags -->
+    <meta name="description" content="Master the art of AI prompting with Promptonium - Interactive challenges, real-time feedback, and competitive leaderboards">
+    <meta name="keywords" content="AI, prompting, prompt engineering, machine learning, training">
+    
+    <!-- Custom styles for animations and enhancements -->
+    <style>
+        /* Loading animation */
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3B82F6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.2s ease;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Gradient text animation */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+        
+        /* Loading screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .loading-content h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .loading-content p {
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-  <div id="root"></div>
-  <script type="text/babel" data-type="module" data-presets="env,react" src="./main.js"></script>
+<body class="antialiased">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>Promptonium</h1>
+            <p>Preparing your training environment...</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <!-- React Root -->
+    <div id="root"></div>
+    
+    <!-- Load React and ReactDOM from CDN -->
+    <script type="module">
+        // Import React and ReactDOM
+        import React from 'https://esm.sh/react@18';
+        import ReactDOM from 'https://esm.sh/react-dom@18/client';
+        
+        // Import the main app
+        import PromptTrainerApp from './main.js';
+        
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create root and render app
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            
+            // Render the app
+            root.render(React.createElement(PromptTrainerApp));
+            
+            // Hide loading screen after a short delay
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 300);
+            }, 1000);
+        });
+        
+        // Error handling
+        window.addEventListener('error', (event) => {
+            console.error('Application error:', event.error);
+            
+            // Display error message if app fails to load
+            const root = document.getElementById('root');
+            if (root && !root.innerHTML) {
+                root.innerHTML = `
+                    <div class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+                        <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+                            <h2 class="text-2xl font-bold text-red-600 mb-4">Oops! Something went wrong</h2>
+                            <p class="text-gray-600 mb-4">We encountered an error while loading the application.</p>
+                            <p class="text-sm text-gray-500 mb-6">Error: ${event.error?.message || 'Unknown error'}</p>
+                            <button onclick="location.reload()" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
+                                Reload Page
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 </html>
